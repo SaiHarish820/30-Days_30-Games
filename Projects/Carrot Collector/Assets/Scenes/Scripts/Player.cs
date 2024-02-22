@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
 
     public FixedJoystick joystick;
     public float moveSpeed;
+    public TextMeshProUGUI left;
 
 
     float hInput, vInput;
@@ -41,12 +43,16 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "Carrot")
         {
-            score++;
-            Destroy(other.gameObject);
-            if(score >= winScore)
+            if (int.Parse(left.text) != 0)
             {
-            winText.SetActive(true);
+                score++;
+                Destroy(other.gameObject);
+                left.text = (int.Parse(left.text) - 1).ToString();
             }
         }
-}
+        if (score >= winScore)
+        {
+            winText.SetActive(true);
+        }
+    }
 }
